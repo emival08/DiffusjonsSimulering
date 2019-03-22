@@ -19,6 +19,12 @@ public class Simulator {
     private static final int DEFAULT_WIDTH = 120;
     // The default depth of the grid.
     private static final int DEFAULT_DEPTH = 80;
+    // Row. Change this value to change spawn location
+    private static final int COLUMN = 60;
+    // Column. Change this value to change spawn location
+    private static final int ROW = 40;
+    //Chooses the quantity of food coloring agent
+    private static final int foodColoringQuantity = 10;
 
     // List of agents in the field.
     private List<Agent> agents;
@@ -28,6 +34,10 @@ public class Simulator {
     public int currentStep;
     // A graphical view of the simulation.
     private List<SimulatorView> views;
+
+    private GraphView graphview;
+
+
 
 
     /**
@@ -56,7 +66,6 @@ public class Simulator {
 
         agents = new ArrayList<>();
         field = new Field(depth, width);
-
         views = new ArrayList<>();
 
         SimulatorView view = new GridView(depth, width);
@@ -128,16 +137,15 @@ public class Simulator {
      * @param numSteps The number of steps to run for.
      */
     public void simulate(int numSteps) {
-        for (int step = 1; step <= numSteps && views.get(0).isViable(field); step++) {
+        for(int i = 0; i < numSteps; i++){
             simulateOneStep();
-            delay(0);   // uncomment this to run more slowly
+            delay(30);   // uncomment this to run more slowly
         }
     }
 
     /**
      * Run the simulation from its current state for a single currentStep.
-     * Iterate over the whole field updating the state of each
-     * fox and rabbit.
+     * Iterate over the whole field updating the state of each instance of food coloring.
      */
     public void simulateOneStep() {
 
@@ -145,7 +153,7 @@ public class Simulator {
 
         // Provide space for new agents.
         List<Agent> newAgents = new ArrayList<>();
-        // Lets the food color act.
+        // Lets the food coloring act.
         for (Iterator<Agent> it = agents.iterator(); it.hasNext(); ) {
             Agent agent = it.next();
             agent.act(newAgents, currentStep);
@@ -186,9 +194,13 @@ public class Simulator {
     /**
      * Randomly populate the field with foxes and rabbits.
      */
-    //TODO create new populate method
     private void populate() {
-
+        field.clear();
+        Location location = new Location(ROW, COLUMN);
+        for (int quantity = 0; quantity < foodColoringQuantity; quantity++) {
+            FoodColoring foodColoring = new FoodColoring(field, location);
+            agents.add(foodColoring);
+        }
     }
 
     /**

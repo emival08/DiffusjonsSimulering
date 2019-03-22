@@ -54,57 +54,44 @@ public class Field {
     }
 
     /**
-     * Place an animal at the given location.
-     * If there is already an animal at the location it will
+     * Place an agent at the given location.
+     * If there is already an agent at the location it will
      * be lost.
      *
-     * @param animal The animal to be placed.
+     * @param agent The agent to be placed.
      * @param row    Row coordinate of the location.
      * @param col    Column coordinate of the location.
      */
-    public void place(Object animal, int row, int col) {
-        place(animal, new Location(row, col));
+    public void place(Object agent, int row, int col) {
+        place(agent, new Location(row, col));
     }
 
 
     /**
-     * Place an animal at the given location.
-     * If there is already an animal at the location it will
+     * Place an agent at the given location.
+     * If there is already an agent at the location it will
      * be lost.
      *
-     * @param animal   The animal to be placed.
-     * @param location Where to place the animal.
+     * @param agent   The agent to be placed.
+     * @param location Where to place the agent.
      */
-    public void place(Object animal, Location location) {
-        field[location.getRow()][location.getCol()] = animal;
-    }
-
-
-    /**
-     * Place an animal at the given location.
-     * If there is already an animal at the location it will
-     * be lost.
-     *
-     * @param agent   The animal to be placed.
-     * @param location Where to place the animal.
-     * @param currentSteps Number of steps of the simulation
-     */
-    public void place(Object agent, Location location, int currentSteps) {
+    public void place(Object agent, Location location) {
         field[location.getRow()][location.getCol()] = agent;
     }
+
 
     /**
      * Return the animal at the given location, if any.
      *
      * @param location Where in the field.
-     * @return The animal at the given location, or null if there is none.
+     * @return The agent at the given location, or null if there is none.
      */
     public Object getObjectAt(Location location) {
         return getObjectAt(location.getRow(), location.getCol());
     }
 
     /**
-     * Return the animal at the given location, if any.
+     * Return the agent at the given location, if any.
      *
      * @param row The desired row.
      * @param col The desired column.
@@ -147,7 +134,7 @@ public class Field {
 
     /**
      * Try to find a free location that is adjacent to the
-     * given location. If there is none, return null.
+     * given location.
      * The returned location will be within the valid bounds
      * of the field.
      *
