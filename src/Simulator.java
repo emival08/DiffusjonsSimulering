@@ -24,7 +24,7 @@ public class Simulator {
     // Column. Change this value to change spawn location
     private static final int ROW = 40;
     //Chooses the quantity of food coloring agent
-    private static final int foodColoringQuantity = 10;
+    private static final int foodColoringQuantity = 1000;
 
     // List of agents in the field.
     private List<Agent> agents;

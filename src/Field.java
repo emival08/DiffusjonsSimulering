@@ -20,6 +20,8 @@ public class Field {
     private int depth, width;
     // Storage for the animals.
     private Object[][] field;
+    //List of Fields
+    private List<Object[][]> listOfObjects;
 
     /**
      * Represent a field of the given dimensions.
@@ -76,7 +78,8 @@ public class Field {
      * @param location Where to place the agent.
      */
     public void place(Object agent, Location location) {
-        field[location.getRow()][location.getCol()] = agent;
+        listOfObjects.add(new Object[location.getRow()][location.getCol()]);
+        //field[location.getRow()][location.getCol()] = agent;
     }
 
 
