@@ -78,8 +78,7 @@ public class Field {
      * @param location Where to place the agent.
      */
     public void place(Object agent, Location location) {
-        listOfObjects.add(new Object[location.getRow()][location.getCol()]);
-        //field[location.getRow()][location.getCol()] = agent;
+        field[location.getRow()][location.getCol()] = agent;
     }
 
 
@@ -128,9 +127,7 @@ public class Field {
         List<Location> free = new LinkedList<>();
         List<Location> adjacent = adjacentLocations(location);
         for (Location next : adjacent) {
-            if (getObjectAt(next) == null) {
-                free.add(next);
-            }
+            free.add(next);
         }
         return free;
     }
