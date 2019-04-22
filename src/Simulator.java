@@ -1,18 +1,13 @@
 
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
-import java.awt.Color;
+import java.util.List;
 
-/**
- * A simple predator-prey simulator, based on a rectangular field
- * containing rabbits and foxes.
- *
- * @author David J. Barnes and Michael Kölling
- * @version 2016.03.18
- */
+
 public class Simulator {
     // Constants representing configuration information for the simulation.
     // The default width for the grid.
@@ -34,6 +29,10 @@ public class Simulator {
     public int currentStep;
     // A graphical view of the simulation.
     private List<SimulatorView> views;
+    //Logwriter for data on the simulation.
+    private LogWriter logWriter;
+
+    private GridView gridview;
 
     private GraphView graphview;
 
@@ -56,6 +55,7 @@ public class Simulator {
      */
     public Simulator(int depth, int width) {
         BufferedReader br = null;
+        logWriter = new LogWriter();
 
         if (width <= 0 || depth <= 0) {
             System.out.println("The dimensions must be greater than zero.");
@@ -69,7 +69,7 @@ public class Simulator {
         views = new ArrayList<>();
 
         SimulatorView view = new GridView(depth, width);
-        view.setColor(FoodColoring.class, Color.RED);
+        view.setColor(FoodColoring.class, Color.ORANGE);
         views.add(view);
 
         view = new GraphView(500, 150, 500);
@@ -141,6 +141,7 @@ public class Simulator {
             simulateOneStep();
             delay(30);   // uncomment this to run more slowly
         }
+        logWriter.close();
     }
 
     /**
@@ -165,6 +166,7 @@ public class Simulator {
         // Adds the new food coloring to the main lists.
         agents.addAll(newAgents);
 
+        logWriter.logFoodColoring(currentStep, gridview.getPopulationLabel());
         updateViews();
     }
 
@@ -192,7 +194,7 @@ public class Simulator {
     }
 
     /**
-     * Randomly populate the field with foxes and rabbits.
+     * Randomly populate the field with food coloring.
      */
     private void populate() {
         field.clear();

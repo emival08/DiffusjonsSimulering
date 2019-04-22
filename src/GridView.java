@@ -21,14 +21,16 @@ public class GridView extends JFrame implements SimulatorView {
     private static final Color UNKNOWN_COLOR = Color.gray;
 
     private static final String STEP_PREFIX = "Step: ";
-    private static final String POPULATION_PREFIX = "Particles: ";
+    private static final String POPULATION_PREFIX = "Food coloring: ";
     private JLabel stepLabel;
-    private JLabel population;
+    public static JLabel population;
     private FieldView fieldView;
     // A map for storing colors for participants in the simulation
     private Map<Class<?>, Color> colors;
     // A statistics object computing and storing simulation information
     private FieldStats stats;
+
+    int populationCount;
 
     /**
      * Create a view of the given width and height.
@@ -43,6 +45,8 @@ public class GridView extends JFrame implements SimulatorView {
         setTitle("Food coloring Simulation");
         stepLabel = new JLabel(STEP_PREFIX, JLabel.CENTER);
         population = new JLabel(POPULATION_PREFIX, JLabel.CENTER);
+
+        populationCount = population.getComponentCount();
 
         setLocation(20, 50);
 
@@ -209,5 +213,13 @@ public class GridView extends JFrame implements SimulatorView {
                 }
             }
         }
+    }
+
+    public static int getPopulationLabel() {
+        String populationString = population.getText();
+        String test = populationString.replace(POPULATION_PREFIX, "");
+        System.out.println(test);
+        int populationInt = Math.round(Integer.parseInt(test));
+        return populationInt;
     }
 }
