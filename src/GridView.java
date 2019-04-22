@@ -218,7 +218,6 @@ public class GridView extends JFrame implements SimulatorView {
     public static int getPopulationLabel() {
         String populationString = population.getText();
         String test = populationString.replace(POPULATION_PREFIX, "");
-        System.out.println(test);
         int populationInt = Math.round(Integer.parseInt(test));
         return populationInt;
     }
